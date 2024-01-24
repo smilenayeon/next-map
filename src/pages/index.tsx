@@ -1,11 +1,35 @@
-//////////this is next.js project's root page
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+import Map from "@/components/Map";
+import Markers from "@/components/Markers";
 
-export default function Home() {
+import * as stores from "@/data/store_data.json";
+import StoreBox from "@/components/StoreBox";
+
+export default function Home({stores}:{stores:StoreType[]}) {
+  const [map, setMap] = useState(null);
+  const [currentStore, setCurrentStore] = useState(null);
+ 
+
   return (
-    <h1>Hello Hello</h1>
-  )
+    <>
+      <Map setMap={setMap} />
+      <Markers
+        stores={stores}
+        map={map}
+        setCurrentStore={setCurrentStore}
+      />
+      <StoreBox store={currentStore} setStore={setCurrentStore} />
+    </>
+  );
+}
+
+export async function getStaticProps() {
+  const stores = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stores`)
+    .then((res) => res.json()); // Added return statement here
+
+  return {
+    props: { stores },
+    revalidate: 60 * 60,
+  };
 }
