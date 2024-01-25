@@ -2,9 +2,10 @@ import { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
 import { AiOutlineClose, AiOutlineInfoCircle, AiOutlineCheck, AiOutlinePhone } from "react-icons/ai";
 import { HiOutlineMapPin} from "react-icons/hi2";
+import { StoreType } from "@/interface";
 
 interface StoreBoxProps{
-    store:any;
+    store:StoreType;
     setStore: Dispatch<SetStateAction<any>>;
 }
 
@@ -15,8 +16,8 @@ export default function StoreBox({store,setStore}: StoreBoxProps) {
             {store && <><div className="p-8">
                 <div className="flex justify-between items-start">
                     <div className="flex gap-4 items-center">
-                        <Image src={store?.bizcnd_code_nm 
-                            ? `/images/markers/${store?.bizcnd_code_nm}.png` 
+                        <Image src={store?.category 
+                            ? `/images/markers/${store?.category}.png` 
                             : "/images/markers/default.png"
                             }
                             width={40}
@@ -24,8 +25,8 @@ export default function StoreBox({store,setStore}: StoreBoxProps) {
                             alt="icon image"
                         />
                         <div>
-                            <div className="font-semibold">{store?.upso_nm}</div>
-                            <div className="text-sm">{store?.cob_code_nm}</div>
+                            <div className="font-semibold">{store?.name}</div>
+                            <div className="text-sm">{store?.name}</div>
                         </div>
                     </div>
                     <button type="button" onClick={()=>{setStore(null)}}>
@@ -34,19 +35,19 @@ export default function StoreBox({store,setStore}: StoreBoxProps) {
                 </div>
                 <div className="mt-4 flex gap-2 items-center">
                     <HiOutlineMapPin/>
-                    {store?.rdn_code_nm}
+                    {store?.address}
                 </div>
                 <div className="mt-2 flex gap-2 items-center">
                     <AiOutlinePhone/>
-                    {store?.tel_no}
+                    {store?.phone}
                 </div>
                 <div className="mt-2 flex gap-2 items-center">
                     <AiOutlineInfoCircle/>
-                    {store?.crtfc_gbn_nm}
+                    {store?.foodCertifyName}
                 </div>
                 <div className="mt-2 flex gap-2 items-center">
                     <AiOutlineCheck/>
-                    {store?.bizcnd_code_nm}
+                    {store?.category}
                 </div>
             </div>
             <button type="button" onClick = {() =>window.alert("상세보기 작업중")} className="w-full bg-blue-700 hover:bg-blue-500 focus:bg-blue-500 py-3 text-white font-semibold rounded-b-lg">

@@ -1,8 +1,9 @@
+import { StoreType } from "@/interface";
 import { useEffect, useCallback, Dispatch, SetStateAction } from "react";
 
 interface MarkerProps {
   map: any;
-  stores: any[];
+  stores: StoreType[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
@@ -15,8 +16,8 @@ export default function Markers({
     if (map) {
       // Display markers for restaurant data
       stores?.map((store) => {
-        var imageSrc = store?.bizcnd_code_nm
-            ? `/images/markers/${store?.bizcnd_code_nm}.png`
+        var imageSrc = store?.category
+            ? `/images/markers/${store?.category}.png`
             : "/images/markers/default.png", // Address of the marker image
           imageSize = new window.kakao.maps.Size(40, 40), // Size of the marker image
           imageOption = { offset: new window.kakao.maps.Point(27, 69) }; // Options for the marker image. Sets the coordinates within the image to align with the marker's position.
@@ -30,8 +31,8 @@ export default function Markers({
 
         // Position where the marker will be displayed
         var markerPosition = new window.kakao.maps.LatLng(
-          store?.y_dnts,
-          store?.x_cnts
+          store?.lat,
+          store?.lng,
         );
 
         // Create the marker
@@ -44,7 +45,7 @@ export default function Markers({
         marker.setMap(map);
 
         // Create an info window to display over the marker when the cursor is over it
-        var content = `<div class="infowindow">${store?.upso_nm}</div>`; // Content to be displayed in the info window
+        var content = `<div class="infowindow">${store?.name}</div>`; // Content to be displayed in the info window
 
         // Create a custom overlay
         var customOverlay = new window.kakao.maps.CustomOverlay({
