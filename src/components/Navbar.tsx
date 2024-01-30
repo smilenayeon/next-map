@@ -15,7 +15,7 @@ export default function NavBar() {
                     <Link href="/stores" className="navbar__list--item">Great Eatery List</Link>
                     <Link href="/stores/new" className="navbar__list--item">Add a new place</Link>
                     <Link href="/users/likes" className="navbar__list--item">Saved Eateries</Link>
-                    <Link href="/users/login" className="navbar__list--item">Login</Link>
+                    <Link href="/api/auth/signin" className="navbar__list--item">Login</Link>
                 </div>
                 {/* mobile button */}
                 <div role="presentation" className="navbar__button" onClick={()=>{setIsOpen((val) => !val)}}>
@@ -29,7 +29,7 @@ export default function NavBar() {
                         <Link href="/stores" className="navbar__list--item--mobile">Great Eatery List</Link>
                         <Link href="/stores/new" className="navbar__list--item--mobile">Add a new place</Link>
                         <Link href="/users/likes" className="navbar__list--item--mobile">Saved Eateries</Link>
-                        <Link href="/users/login" className="navbar__list--item--mobile">Login</Link>
+                        <Link href="/api/auth/signin" className="navbar__list--item--mobile">Login</Link>
                     </div>
                 </div>
             )}

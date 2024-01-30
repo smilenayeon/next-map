@@ -1,15 +1,13 @@
 import React, {useRef, useEffect, useCallback } from "react";
-import {StoreApiResponse, StoreType} from "@/interface";
+import {StoreType} from "@/interface";
 import Image from "next/image";
 
-import { useQuery, useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "react-query";
 
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { useRouter } from "next/router";
-import Link  from "next/link";
-import Pagination from "@/components/Pagination";
-import { BiLastPage } from "react-icons/bi";
+
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import Loader from "@/components/Loader";
 
@@ -24,7 +22,7 @@ export default function StoreListPage() {
 
     console.log(pageRef);
 
-   const fetchStores= async ({pageParam= 1}) => {
+   const fetchStores= async ({pageParam = 1}) => {
     const {data} = await axios ("/api/stores?.page=" + pageParam, {
         params:{
             limit:10,
@@ -34,7 +32,7 @@ export default function StoreListPage() {
     return data;
    };
 
-   const {data:stores, isFetching,fetchNextPage,isFetchingNextPage,hasNextPage, isError, isLoading} = useInfiniteQuery('stores', fetchStores,{
+   const {data:stores, isFetching, fetchNextPage, isFetchingNextPage, hasNextPage, isError, isLoading} = useInfiniteQuery('stores', fetchStores,{
     getNextPageParam:(lastPage:any) => lastPage?.data?.length > 0 ? lastPage.page +1 : undefined,
    });
 

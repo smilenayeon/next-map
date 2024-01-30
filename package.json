@@ -12,9 +12,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^1.1.0",
     "@prisma/client": "^5.8.1",
     "axios": "^1.6.7",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
