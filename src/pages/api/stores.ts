@@ -9,7 +9,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<StoreApiResponse | StoreType[]>
+  res: NextApiResponse<StoreApiResponse | StoreType | StoreType[] >
 ) {
   const{page = ""}:{page?:string}=req.query;
   const prisma = new PrismaClient();
@@ -31,10 +31,14 @@ export default async function handler(
   }); 
 
   }else{
+    const {id}: {id?:string} =req.query;
     const stores = await prisma.store.findMany({
-      orderBy:{id:"asc"}
+      orderBy:{id:"asc"},
+      where: {
+        id: id ? parseInt(id) : {},
+      },
     });
-    return res.status(200).json(stores);
+    return res.status(200).json(id ? stores[0] : stores);
   }
   
 }
