@@ -1,10 +1,15 @@
+import { useState } from "react";
+
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { StoreType } from "@/interface";
 import Loader from "@/components/Loader";
+import Map from "@/components/Map";
+import Marker from "@/components/Marker";
 
 export default function StoreDetailPage() {
+    const [map, setMap] = useState(null);
     const router=useRouter();
     const {id} = router.query;
 
@@ -16,9 +21,11 @@ export default function StoreDetailPage() {
     const {
         data:store, 
         isFetching, 
-        isError
+        isSuccess,
+        isError,
     } = useQuery(`store-${id}`, fetchStore, {
         enabled: !!id,
+        refetchOnWindowFocus:false,
     });
 
     if(isError){
@@ -34,6 +41,7 @@ export default function StoreDetailPage() {
     console.log(store, isFetching, isError);
 
     return(
+        <>
         <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-gray-900">
@@ -97,6 +105,14 @@ export default function StoreDetailPage() {
         </dl>
       </div>
     </div>
+
+    {isSuccess && (
+        <div className="overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]">
+            <Map setMap={setMap} lat={store?.lat} lng={store?.lng} zoom={1}/>
+            <Marker map={map} store={store}/>
+        </div>
+    )}
+    </>
     );
 
 };
