@@ -18,7 +18,7 @@ page?:number;
 }
 
 export interface LocationType{
-    lat:number;
-    lng:number;
-    zoom:number;
+    lat?: string | null;
+    lng?: string | null;
+    zoom?: number;
 }
