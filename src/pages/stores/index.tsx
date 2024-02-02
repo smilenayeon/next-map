@@ -13,6 +13,8 @@ import Loader from "@/components/Loader";
 import SearchFilter from "@/components/SearchFilter";
 
 import { useRouter } from "next/router";
+import { searchState } from "@/atom";
+import { useRecoilValue } from "recoil";
 
 
 export default function StoreListPage() {
@@ -20,12 +22,11 @@ export default function StoreListPage() {
     const ref = useRef<HTMLDivElement | null>(null);
     const pageRef = useIntersectionObserver(ref, {});
     const isPageEnd =!!pageRef?.isIntersecting;
-    const[q, setQ] = useState<string | null> (null);
-    const [district,setDistrict] = useState<string | null> (null);
+    const searchValue= useRecoilValue(searchState);
     
     const searchParams = {
-        q: q,
-        district: district,
+        q: searchValue?.q,
+        district: searchValue?.district,
     }
 
 
@@ -76,7 +77,7 @@ export default function StoreListPage() {
 
     return(
         <div className="px-s md:max-w-4xl mx-auto py-8">
-            <SearchFilter setQ={setQ} setDistrict={setDistrict}/>
+            <SearchFilter/>
             <ul role="list" className="divide-y divide-gray-100">
                 {isLoading 
                 ? <Loading/> 
