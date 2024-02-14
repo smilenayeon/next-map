@@ -24,4 +24,31 @@ export const DISTRICT_ARR = [
     "종로구",
     "중구",
     "중랑구"
-   ]
+   ];
+
+   export const CATEGORY_ARR = [
+    "한식", // Korean Food
+    "카페", // Cafe
+    "분식", // Snack Food
+    "동남아시아 음식", // Southeast Asian
+    "양식", // Western Food
+    "술집/바", // Bar/Pub
+    "베이커리", // Bakery
+    "인도/중동 음식", // Indian/Middle Eastern
+    "중국 음식", // Chinese Food
+    "국/탕", // Soup
+    "일식", // Japanese Food
+    "복어 취급", // Pufferfish Handling
+  ];
+  
+  export const FOOD_CERTIFY_ARR = [
+    "Vegetarian-Friendly Restaurant",
+    "Vegetarian Restaurant",
+    "Low-Salt Practice Restaurant",
+    "Dietary Life Experience Space",
+    "Farmers' Market",
+    "Eco-Friendly Organic Food Store",
+  ];
+  
+  export const STORE_TYPE_ARR = ["General Restaurant", "Snack Bar", "Bakery Business"];
+  
