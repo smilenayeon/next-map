@@ -8,6 +8,7 @@ import Marker from "@/components/Marker";
 
 import {useSession} from "next-auth/react";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function StoreDetailPage() {
     const router=useRouter();
@@ -29,6 +30,28 @@ export default function StoreDetailPage() {
         enabled: !!id,
         refetchOnWindowFocus:false,
     });
+
+    const handleDelete = async() => {
+      const confirm= window.confirm("Do you want to delete the store?");
+
+      if (confirm && store){
+        try {
+          const result = await axios.delete(`/api/stores?id=${store?.id}`);
+          if (result.status === 200) {
+            toast.success("The store is deleted.");
+            router.replace("/");
+          }else{
+            toast.error("Please try again.");
+          }
+          
+        } catch (error) {
+          console.log(error);
+          toast.error("Please try again.");
+          
+        }
+      }
+
+    };
 
     if(isError){
         return<div className="w-full h-screen mx-auto pt-[10%] text-red-500 text-center font-semibold">Try again</div>
@@ -54,12 +77,21 @@ export default function StoreDetailPage() {
                 {store?.address}
               </p>
           </div>
-          <div className="flex items-center gap-4">
+          {status === 'authenticated' && (
+            <div className="flex items-center gap-4 px-4 py-3">
             <Link className="underline hover:text-gray-400 text-sm" href = {`/stores/${store?.id}/edit`}>
               Edit
             </Link>
-            <button type="button" className="underline hover:text-gray-400 text-sm">Delete</button>
-        </div>
+            <button 
+              type="button" 
+              onClick={handleDelete}
+              className="underline hover:text-gray-400 text-sm"
+            >
+              Delete
+            </button>
+          </div>
+          )}
+          
         </div>
       
       <div className="mt-6 border-t border-gray-100">
