@@ -15,6 +15,7 @@ import SearchFilter from "@/components/SearchFilter";
 import { useRouter } from "next/router";
 import { searchState } from "@/atom";
 import { useRecoilValue } from "recoil";
+import StoreList from "@/components/StoreList";
 
 
 export default function StoreListPage() {
@@ -76,47 +77,15 @@ export default function StoreListPage() {
    };
 
     return(
-        <div className="px-s md:max-w-4xl mx-auto py-8">
+        <div className="px-4 md:max-w-4xl mx-auto py-8">
             <SearchFilter/>
             <ul role="list" className="divide-y divide-gray-100">
                 {isLoading 
-                ? <Loading/> 
+                ? (<Loading/>)
                 : stores?.pages?.map((page,index) => (
                     <React.Fragment key={index}>
                         {page?.data?.map((store:StoreType, i:number) => (
-                            <li 
-                                className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-50" 
-                                key={i} 
-                                onClick={()=>router.push(`/stores/${store.id}`)}
-                            >
-                            <div className="flex gap-x-4">
-                                <Image 
-                                    src={store?.category 
-                                    ? `/images/markers/${store?.category}.png`
-                                    : "/images/markers/default.png" 
-                                    }
-                                    width={48}
-                                    height={48}
-                                    alt="icon image"
-                                />
-                                <div>
-                                    <div className=" text-sm font-semibold leading-6 text-gray-900">
-                                        {store?.name}
-                                    </div>
-                                    <div className="mt-1 text-xs font-semibold leading-5 text-gray-500">
-                                        {store?.name}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="hidden sm:flex sm:flex-col sm:items-end">
-                                <div className=" text-sm font-semibold leading-6 text-gray-900">
-                                    {store?.address}
-                                </div>
-                                <div className=" text-sm font-semibold leading-6 text-gray-900">
-                                    {store?.phone || "no tel"} | {store?.foodCertifyName} | {store?.category}
-                                </div>
-                            </div>
-                        </li>
+                           <StoreList store={store} i={i} key={i}/>
                         ))}
                     
                     </React.Fragment>
