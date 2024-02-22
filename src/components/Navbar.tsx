@@ -18,6 +18,7 @@ export default function NavBar() {
                     <Link href="/stores" className="navbar__list--item">Great Eatery List</Link>
                     <Link href="/stores/new" className="navbar__list--item">Add a new place</Link>
                     <Link href="/users/likes" className="navbar__list--item">Saved Eateries</Link>
+                    <Link href="/users/mypage" className="navbar__list--item">My Page</Link>
                     
                     {status === 'authenticated' ? <button type="button" onClick={() => signOut()}>Logout</button> : <Link href="/api/auth/signin" className="navbar__list--item">Login</Link>}
                 </div>
@@ -33,7 +34,8 @@ export default function NavBar() {
                         <Link href="/stores" className="navbar__list--item--mobile">Great Eatery List</Link>
                         <Link href="/stores/new" className="navbar__list--item--mobile">Add a new place</Link>
                         <Link href="/users/likes" className="navbar__list--item--mobile">Saved Eateries</Link>
-                        <Link href="/api/auth/signin" className="navbar__list--item--mobile">Login</Link>
+                        <Link href="/users/mypage" className="navbar__list--item--mobile">My Page</Link>
+                        {status === 'authenticated' ? <button type="button" onClick={() => signOut()} className="navbar__list--item--mobile">Logout</button> : <Link href="/api/auth/signin" className="navbar__list--item--mobile">Login</Link>}
                     </div>
                 </div>
             )}
