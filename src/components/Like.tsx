@@ -11,7 +11,7 @@ interface LikeProps{
 }
 
 export default function Like({storeId}:LikeProps) {
-    const {data:session} =useSession();
+    const {data:session, status} =useSession();
 
     const fetchStore = async() => {
         const {data} = await axios(`/api/stores?id=${storeId}`);
@@ -45,12 +45,14 @@ export default function Like({storeId}:LikeProps) {
             } catch (error) {
                 console.log(error);
             }
+        } else if (status ==="unauthenticated"){
+            toast.warn("Use after log in")
         }
     }
     return(
         <button type="button" onClick={toggleLike}>
             {/* if the logged in user clicked like button */}
-            {store?.likes?.length ? ( 
+            {status === "authenticated" && store?.likes?.length ? ( 
             <AiFillHeart className="hover:text-red-600 focus:text-red-600 text-red-500"/>
              ) : ( 
             <AiOutlineHeart className="hover:text-red-600 focus:text-red-600"/>

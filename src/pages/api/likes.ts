@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { AuthOptions } from "next-auth";
 import prisma from "@/db";
 import { authOptions } from "./auth/[...nextauth]";
 import { LikeInterface, LikeApiResponse } from "@/interface";

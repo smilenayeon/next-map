@@ -31,11 +31,29 @@ export default function NavBar() {
             {isOpen && (
                 <div className="navbar--mobile">
                     <div className="navbar__list--mobile">
-                        <Link href="/stores" className="navbar__list--item--mobile">Great Eatery List</Link>
-                        <Link href="/stores/new" className="navbar__list--item--mobile">Add a new place</Link>
-                        <Link href="/users/likes" className="navbar__list--item--mobile">Saved Eateries</Link>
-                        <Link href="/users/mypage" className="navbar__list--item--mobile">My Page</Link>
-                        {status === 'authenticated' ? <button type="button" onClick={() => signOut()} className="navbar__list--item--mobile">Logout</button> : <Link href="/api/auth/signin" className="navbar__list--item--mobile">Login</Link>}
+                        <Link href="/stores" className="navbar__list--item--mobile" onClick={()=>setIsOpen(false)}>Great Eatery List</Link>
+                        <Link href="/stores/new" className="navbar__list--item--mobile" onClick={()=>setIsOpen(false)}>Add a new place</Link>
+                        <Link href="/users/likes" className="navbar__list--item--mobile" onClick={()=>setIsOpen(false)}>Saved Eateries</Link>
+                        <Link href="/users/mypage" className="navbar__list--item--mobile" onClick={()=>setIsOpen(false)}>My Page</Link>
+                        {status === 'authenticated' 
+                        ? <button 
+                            type="button" 
+                            onClick={() => { 
+                                signOut();
+                                setIsOpen(false);
+                            }} 
+                            className="navbar__list--item--mobile"
+                            >
+                                Logout
+                            </button> 
+                        : <Link 
+                            href="/api/auth/signin" 
+                            className="navbar__list--item--mobile" 
+                            onClick={()=>setIsOpen(false)}
+                            >
+                                Login
+                            </Link>
+                        }
                     </div>
                 </div>
             )}
