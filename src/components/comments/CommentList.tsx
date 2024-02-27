@@ -18,18 +18,17 @@ export default function CommentList({
 
   const handleDeleteComment = async (id: number) => {
     const confirm = window.confirm("Would you delete the comment?");
-
     if (confirm) {
       try {
         const result = await axios.delete(`/api/comments?id=${id}`);
-
         if (result.status === 200) {
           toast.success("The comment is deleted.");
         } else {
           toast.error("Please try again.");
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
+        toast.error("An error occurred.");
       }
     }
   };

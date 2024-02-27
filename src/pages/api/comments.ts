@@ -79,7 +79,7 @@ export default async function handler(
     });
 
     return res.status(200).json({
-      data: comments,
+      data: comments as CommentInterface[],
       page: parseInt(page),
       totalPage: Math.ceil(count / parseInt(limit)),
     });
